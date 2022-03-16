@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:joelfindtechnician/state/show_general_profile.dart';
-import 'package:joelfindtechnician/state/show_profile.dart';
-import 'package:joelfindtechnician/utility/check_user_social.dart';
 
 class ShowCircleAvatar extends StatelessWidget {
-  String url;
+  
+  final String url;
 
   ShowCircleAvatar({
     Key? key,

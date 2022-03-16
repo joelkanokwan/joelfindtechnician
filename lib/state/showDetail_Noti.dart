@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +29,12 @@ import 'package:joelfindtechnician/widgets/show_text.dart';
 class ShowDetailNoti extends StatefulWidget {
   final String title, message;
   final UserModelOld userModelOld;
-  
+
   const ShowDetailNoti({
     Key? key,
     required this.userModelOld,
     required this.title,
     required this.message,
-    
   }) : super(key: key);
 
   @override
@@ -81,7 +80,8 @@ class _ShowDetailNotiState extends State<ShowDetailNoti> {
   processTakePhoto(ImageSource source) async {
     try {
       var result = await ImagePicker()
-          .getImage(source: source, maxWidth: 800, maxHeight: 800);
+          .pickImage(source: source, maxWidth: 800, maxHeight: 800);
+
       setState(() {
         file = File(result!.path);
       });
@@ -126,7 +126,6 @@ class _ShowDetailNotiState extends State<ShowDetailNoti> {
           .then((value) async {
         for (var item in value.docs) {
           docIdUser = item.id;
-          print('@4Dec docIdUser ==>> $docIdUser');
         }
       });
     });
@@ -141,8 +140,7 @@ class _ShowDetailNotiState extends State<ShowDetailNoti> {
           .then((value) async {
         for (var item in value.docs) {
           docIdReply = item.id;
-          print('@@@4Dec message ==> $message');
-          print('@@@4Dec doc of postcustomer ==>> $docIdReply');
+
           PostCustomerModel model = PostCustomerModel.fromMap(item.data());
 
           await FirebaseFirestore.instance
@@ -848,7 +846,7 @@ class _ShowDetailNotiState extends State<ShowDetailNoti> {
 
   Future<void> processInsertPostCustomer(String urlImagePost) async {
     String token = postCustomerModels[0].token;
-    print('#6jan processInsertPostCustomer Work token Owner Post ==> $token');
+    // print('#16mar processInsertPostCustomer Work token Owner Post ==> $token');
 
     String name = userModelOld!.name;
     String pathImage = userModelOld!.img;
@@ -871,13 +869,12 @@ class _ShowDetailNotiState extends State<ShowDetailNoti> {
 
     String titleNoti = 'Answer from ${userModelOld!.name}';
     String bodyNoti = model.reply;
+    bodyNoti = 'reply@$bodyNoti';
 
     String apiSentNotification =
         'https://www.androidthai.in.th/eye/apiNotification.php?isAdd=true&token=$token&title=$titleNoti&body=$bodyNoti';
 
     await Dio().get(apiSentNotification).then((value) async {
-      print('#6jan Sent Noti to Owner Post Success value ==> $value');
-
       await Firebase.initializeApp().then((value) async {
         await FirebaseFirestore.instance
             .collection('postcustomer')
@@ -886,13 +883,14 @@ class _ShowDetailNotiState extends State<ShowDetailNoti> {
             .doc()
             .set(model.toMap())
             .then((value) {
-          // require sent notification
           print('#28Nov Insert Reply Success');
           textEditingController.text = '';
           file = null;
           readDataNotifiction();
         });
       });
+    }).catchError((onError) {
+      print('#16mar onError ==>> ${onError.toString()}');
     });
   }
 
