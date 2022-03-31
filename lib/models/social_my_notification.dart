@@ -8,32 +8,49 @@ class SocialMyNotificationModel {
   final String docIdTechnic;
   final Timestamp timeConfirm;
   final bool readed;
+  final String customerName;
+  final String detailOfWork;
+  final String waranty;
+  final String totalPrice;
   SocialMyNotificationModel({
     required this.docIdPostCustomer,
     required this.docIdTechnic,
     required this.timeConfirm,
     required this.readed,
+    required this.customerName,
+    required this.detailOfWork,
+    required this.waranty,
+    required this.totalPrice,
   });
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'docIdPostCustomer': docIdPostCustomer,
       'docIdTechnic': docIdTechnic,
       'timeConfirm': timeConfirm,
       'readed': readed,
+      'customerName': customerName,
+      'detailOfWork': detailOfWork,
+      'waranty': waranty,
+      'totalPrice': totalPrice,
     };
   }
 
   factory SocialMyNotificationModel.fromMap(Map<String, dynamic> map) {
     return SocialMyNotificationModel(
-      docIdPostCustomer: (map['docIdPostCustomer'] ?? '') as String,
-      docIdTechnic: (map['docIdTechnic'] ?? '') as String,
+      docIdPostCustomer: map['docIdPostCustomer'] ?? '',
+      docIdTechnic: map['docIdTechnic'] ?? '',
       timeConfirm: (map['timeConfirm']),
-      readed: (map['readed'] ?? false) as bool,
+      readed: map['readed'] ?? false,
+      customerName: map['customerName'] ?? '',
+      detailOfWork: map['detailOfWork'] ?? '',
+      waranty: map['waranty'] ?? '',
+      totalPrice: map['totalPrice'] ?? '',
     );
   }
 
   factory SocialMyNotificationModel.fromJson(String source) =>
-      SocialMyNotificationModel.fromMap(
-          json.decode(source) as Map<String, dynamic>);
+      SocialMyNotificationModel.fromMap(json.decode(source));
+
+  String toJson() => json.encode(toMap());
 }

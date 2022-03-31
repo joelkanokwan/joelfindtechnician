@@ -3,21 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:joelfindtechnician/customer_state/social_service.dart';
 import 'package:joelfindtechnician/forms/formto_technician.dart';
 import 'package:joelfindtechnician/models/appointment_model.dart';
 import 'package:joelfindtechnician/models/notification_model.dart';
 import 'package:joelfindtechnician/models/partner_noti_model.dart';
 import 'package:joelfindtechnician/models/user_model_old.dart';
-import 'package:joelfindtechnician/state/community_page.dart';
-import 'package:joelfindtechnician/partner_state/home_page.dart';
-import 'package:joelfindtechnician/partner_state/mywallet.dart';
-import 'package:joelfindtechnician/partner_state/partner_aboutus.dart';
-import 'package:joelfindtechnician/partner_state/partner_contactus.dart';
-import 'package:joelfindtechnician/partner_state/partner_howtouseapp.dart';
-import 'package:joelfindtechnician/partner_state/partner_orderhistory.dart';
-import 'package:joelfindtechnician/partner_state/partner_signin.dart';
-import 'package:joelfindtechnician/partner_state/partner_termandconditon.dart';
 import 'package:joelfindtechnician/state/showDetail_Noti.dart';
 import 'package:joelfindtechnician/utility/my_constant.dart';
 import 'package:joelfindtechnician/utility/time_to_string.dart';
@@ -42,7 +32,7 @@ class _PartnerNotificationState extends State<PartnerNotification> {
 
   List<NotificationModel> notificationModels = [];
 
-  var appointMentModels = <AppointmentModel>[];
+  var appointMentModels = <AppointmentModel?>[];
   var partnerNotiModels = <PartnerNotiModel>[];
   var partnerNotiModelsorteds = <PartnerNotiModel>[];
 
@@ -64,12 +54,7 @@ class _PartnerNotificationState extends State<PartnerNotification> {
           .orderBy('timeNoti', descending: true)
           .get()
           .then((value) {
-        if (value.docs.isEmpty) {
-          setState(() {
-            load = false;
-            haveData = false;
-          });
-        } else {
+        if (value.docs.isNotEmpty) {
           for (var item in value.docs) {
             NotificationModel model = NotificationModel.fromMap(item.data());
             PartnerNotiModel partnerNotiModel = PartnerNotiModel(
@@ -84,6 +69,7 @@ class _PartnerNotificationState extends State<PartnerNotification> {
               haveData = true;
               notificationModels.add(model);
               partnerNotiModels.add(partnerNotiModel);
+              appointMentModels.add(null);
             });
           }
         }
@@ -98,39 +84,51 @@ class _PartnerNotificationState extends State<PartnerNotification> {
         .orderBy('timeAppointment', descending: true)
         .get()
         .then((value) {
-      for (var item in value.docs) {
-        AppointmentModel appointmentModel =
-            AppointmentModel.fromMap(item.data());
-        PartnerNotiModel partnerNotiModel = PartnerNotiModel(
-          title: appointmentModel.nameSocial,
-          timestamp: appointmentModel.timeContact,
-          bolCollection: false,
-          status: appointmentModel.approve,
-          docId: item.id,
-          appointmentModel: appointmentModel,
-        );
-        setState(() {
+      print('#30Mar value appoint ==>> ${value.docs}');
+      if (value.docs.isNotEmpty) {
+        for (var item in value.docs) {
+          AppointmentModel appointmentModel =
+              AppointmentModel.fromMap(item.data());
+          PartnerNotiModel partnerNotiModel = PartnerNotiModel(
+            title: appointmentModel.nameSocial,
+            timestamp: appointmentModel.timeContact,
+            bolCollection: false,
+            status: appointmentModel.approve,
+            docId: item.id,
+            appointmentModel: appointmentModel,
+          );
+          load = false;
           appointMentModels.add(appointmentModel);
           partnerNotiModels.add(partnerNotiModel);
-        });
+          setState(() {});
+        }
       }
     });
-    var partnerNotiMaps = <Map<String, dynamic>>[];
 
-    for (var item in partnerNotiModels) {
-      var partnerNotiMap = item.toMap();
-      partnerNotiMaps.add(partnerNotiMap);
-    }
-    print('#1feb partnerNOtiMap ==> $partnerNotiMaps');
-    partnerNotiMaps.sort((a, b) => b['timestamp'].compareTo(a['timestamp']));
-    print(
-        '#1feb ################## partnerNOtiMap sorted ==> $partnerNotiMaps');
-    for (var item in partnerNotiMaps) {
-      PartnerNotiModel partnerNotiModel = PartnerNotiModel.fromMap(item);
-      setState(() {
+    // เรียงการแสดงผล ตามเวลา
+
+    if (partnerNotiModels.isNotEmpty) {
+      var partnerNotiMaps = <Map<String, dynamic>>[];
+      for (var item in partnerNotiModels) {
+        var partnerNotiMap = item.toMap();
+        partnerNotiMaps.add(partnerNotiMap);
+      }
+      // partnerNotiMaps.sort((a, b) => b['timestamp'].compareTo(a['timestamp']));
+
+      for (var item in partnerNotiMaps) {
+        PartnerNotiModel partnerNotiModel = PartnerNotiModel.fromMap(item);
         partnerNotiModelsorteds.add(partnerNotiModel);
-      });
+
+        load = false;
+        haveData = true;
+        setState(() {});
+      }
+    } else {
+      load = false;
+      haveData = false;
     }
+
+    setState(() {});
   }
 
   @override
@@ -150,22 +148,6 @@ class _PartnerNotificationState extends State<PartnerNotification> {
     );
   }
 
-  ListView testListView() {
-    return ListView.builder(
-      itemCount: partnerNotiModelsorteds.length,
-      itemBuilder: (context, index) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ShowText(title: partnerNotiModelsorteds[index].title),
-          ShowText(
-              title: TimeToString(
-                      timestamp: partnerNotiModelsorteds[index].timestamp)
-                  .findString()),
-        ],
-      ),
-    );
-  }
-
   ListView oldListView() {
     return ListView.builder(
         itemCount: partnerNotiModelsorteds.length,
@@ -178,6 +160,7 @@ class _PartnerNotificationState extends State<PartnerNotification> {
               partnerNotiModelsorteds[index].docId,
               partnerNotiModelsorteds[index].bolCollection,
               partnerNotiModelsorteds[index].appointmentModel,
+              appointMentModels[index]?.customerName,
             ));
   }
 
@@ -188,12 +171,11 @@ class _PartnerNotificationState extends State<PartnerNotification> {
     String title,
     String docId,
     bool bolCollection,
-    AppointmentModel?
-        appointmentModel, //true ==> myNotificatio, false ==> appointment
+    AppointmentModel? appointmentModel,
+    String? customerName, //true ==> myNotificatio, false ==> appointment
   ) {
     return GestureDetector(
       onTap: () {
-        print('#28Nov Click message ==> $message');
         if (bolCollection) {
           Navigator.push(
               context,
@@ -205,12 +187,13 @@ class _PartnerNotificationState extends State<PartnerNotification> {
                 ),
               ));
         } else {
-          print('#2feb customerName ==>> ${appointmentModel?.customerName}');
           Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => FormtoTechnician(
-                  docIdAppointment: docId, appointmentModel: appointmentModel!,
+                  docIdAppointment: docId,
+                  appointmentModel: appointmentModel!,
+                  customerName: customerName ?? '',
                 ),
               ));
         }

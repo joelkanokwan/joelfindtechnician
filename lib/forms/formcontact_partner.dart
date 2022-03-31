@@ -376,8 +376,8 @@ class _FormContactPartnerState extends State<FormContactPartner> {
                
               );
 
-              print(
-                  '#1feb appointmentModel ===>>> ${appointmentModel.toMap()}');
+             
+             
 
               var docUser =
                   await FindUserByUid(uid: userModelOld!.uid).getDocUser();
@@ -392,7 +392,7 @@ class _FormContactPartnerState extends State<FormContactPartner> {
                   .doc()
                   .set(appointmentModel.toMap())
                   .then((value) async {
-                print('Set Success');
+                print('Set Success ==> ');
                 ProcessSentNotiByToken(
                         token: tokenTechnicial!,
                         title: postCustomerModel!.job,

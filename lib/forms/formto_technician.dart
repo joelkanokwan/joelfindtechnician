@@ -5,10 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:joelfindtechnician/alertdialog/my_dialog.dart';
 import 'package:joelfindtechnician/alertdialog/partner_cancel.dart';
-
 import 'package:joelfindtechnician/forms/check_detail.dart';
 import 'package:joelfindtechnician/forms/confirm_job.dart';
 import 'package:joelfindtechnician/models/answer_model.dart';
@@ -31,10 +29,12 @@ import 'package:joelfindtechnician/widgets/show_text.dart';
 class FormtoTechnician extends StatefulWidget {
   final String? docIdAppointment;
   final AppointmentModel? appointmentModel;
+  final String customerName;
   const FormtoTechnician({
     Key? key,
     this.docIdAppointment,
     this.appointmentModel,
+    required this.customerName,
   }) : super(key: key);
 
   @override
@@ -53,12 +53,12 @@ class _FormtoTechnicianState extends State<FormtoTechnician> {
   PostCustomerModel? postCustomerModel;
   var listAnswerModels = <List<AnswerModel>>[];
 
-  String? detailOfWork, warantly, totalPrice;
+  String? detailOfWork, waranty, totalPrice;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    print('#30Mar customerName ==>> ${widget.customerName}');
     docIdAppointment = widget.docIdAppointment;
     appointmentModel = widget.appointmentModel;
 
@@ -75,15 +75,15 @@ class _FormtoTechnicianState extends State<FormtoTechnician> {
         .doc(appointmentModel!.docIdPostcustomer)
         .get()
         .then((value) {
-      setState(() {
-        postCustomerModel = PostCustomerModel.fromMap(value.data()!);
-      });
+      postCustomerModel = PostCustomerModel.fromMap(value.data()!);
+      setState(() {});
     });
 
     await FirebaseFirestore.instance
         .collection('postcustomer')
         .doc(appointmentModel!.docIdPostcustomer)
         .collection('replypost')
+        .where('uid', isEqualTo: uidTechnic)
         .get()
         .then((value) async {
       for (var item in value.docs) {
@@ -269,9 +269,9 @@ class _FormtoTechnicianState extends State<FormtoTechnician> {
                         ),
                         Divider(thickness: 2),
                         ShowForm(
-                          label: 'Warantly',
+                          label: 'Waranty',
                           changeFunc: (String? string) =>
-                              warantly = string!.trim(),
+                              waranty = string!.trim(),
                         ),
                         Divider(thickness: 2),
                         ShowForm(
@@ -408,7 +408,7 @@ class _FormtoTechnicianState extends State<FormtoTechnician> {
     return ElevatedButton(
       onPressed: () {
         if ((detailOfWork?.isEmpty ?? true) ||
-            (warantly?.isEmpty ?? true) ||
+            (waranty?.isEmpty ?? true) ||
             (totalPrice?.isEmpty ?? true)) {
           MyDialog()
               .normalDialog(context, 'Have Space', 'Please Fill Every Blank');
@@ -438,10 +438,15 @@ class _FormtoTechnicianState extends State<FormtoTechnician> {
 
                       SocialMyNotificationModel socialMyNotificationModel =
                           SocialMyNotificationModel(
-                        docIdPostCustomer: appointmentModel!.docIdPostcustomer,
-                        docIdTechnic: docIdTechnic!,
-                        timeConfirm: timestamp, readed: false,
-                      );
+                              docIdPostCustomer:
+                                  appointmentModel!.docIdPostcustomer,
+                              docIdTechnic: docIdTechnic!,
+                              timeConfirm: timestamp,
+                              readed: false,
+                              customerName: widget.customerName,
+                              detailOfWork: detailOfWork!,
+                              totalPrice: totalPrice!,
+                              waranty: waranty!);
 
                       await FirebaseFirestore.instance
                           .collection('social')

@@ -19,12 +19,14 @@ class ShowGeneralProfile extends StatefulWidget {
   final bool showContact;
   final PostCustomerModel? postCustomerModel;
   final String? docIdPostCustomer;
+  final String? docIdPostCustomerTarget;
   const ShowGeneralProfile({
     Key? key,
     required this.uidTechnic,
     required this.showContact,
     this.postCustomerModel,
     this.docIdPostCustomer,
+    this.docIdPostCustomerTarget,
   }) : super(key: key);
 
   @override
@@ -59,6 +61,10 @@ class _ShowGeneralProfileState extends State<ShowGeneralProfile> {
     showContact = widget.showContact;
     if (showContact == null) {
       showContact = false;
+    }
+
+    if (widget.docIdPostCustomerTarget != null) {
+      docIdCustomer = widget.docIdPostCustomerTarget;
     }
 
     findUser();
@@ -109,7 +115,9 @@ class _ShowGeneralProfileState extends State<ShowGeneralProfile> {
           // รู้ doc ที่ส่งมา , doc ที่มี
           print('#2feb ค่า doc ที่ส่งมา ==> $docIdCustomer');
 
-          if ((approve == 'unread') || (approve == 'read')) {
+          if ((approve == 'unread') ||
+              (approve == 'read') ||
+              (approve == 'confirm')) {
             if (docIdCustomer == appointmentModel.docIdPostcustomer) {
               setState(() {
                 colorContact = false;
@@ -301,13 +309,16 @@ class _ShowGeneralProfileState extends State<ShowGeneralProfile> {
         ),
         onPressed: () {
           if (colorContact!) {
+            print('#27Mar contact Button Work');
+            print(
+                '#27MarpostcustomerModel ==> ${widget.postCustomerModel!.toMap()}');
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => FormContactPartner(
                     userModelOld: userModelOld!,
                     postCustomerModel: widget.postCustomerModel,
-                    docIdPostCustomer: widget.docIdPostCustomer ?? '',
+                    docIdPostCustomer: docIdCustomer ?? '',
                   ),
                 )).then((value) => findApprove());
           }

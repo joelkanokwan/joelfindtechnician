@@ -4,6 +4,10 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:joelfindtechnician/customer_state/ctm_notification.dart';
+import 'package:joelfindtechnician/forms/check_detail.dart';
+import 'package:joelfindtechnician/forms/check_out.dart';
+import 'package:joelfindtechnician/state/detail_noti_social.dart';
 import 'package:joelfindtechnician/state/login_page.dart';
 
 final Map<String, WidgetBuilder> map = {
@@ -31,9 +35,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
-      // routes: map,
-      // initialRoute: firstPage,
+      home: CheckOut(),
+
+      // home: DetailNotiSocial(reply: 'helloEye'),
+      
+      
+      
     );
   }
 }

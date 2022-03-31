@@ -22,7 +22,7 @@ class CustomerNotification extends StatefulWidget {
 class _CustomerNotificationState extends State<CustomerNotification> {
   var postCustomerModels = <PostCustomerModel>[];
 
-  String? uidLogin;
+  String uidLogin = FirebaseAuth.instance.currentUser!.uid;
 
   var docIdPostCustomers = <String>[];
 
@@ -41,6 +41,8 @@ class _CustomerNotificationState extends State<CustomerNotification> {
   }
 
   Future<void> readMyNotification() async {
+    // print('#29Mar uidLogin ==> $uidLogin');
+
     await FirebaseFirestore.instance
         .collection('social')
         .doc(uidLogin)
@@ -51,10 +53,14 @@ class _CustomerNotificationState extends State<CustomerNotification> {
         SocialMyNotificationModel socialMyNotificationModel =
             SocialMyNotificationModel.fromMap(item.data());
 
+        // print(
+            // '#29Mar docIdPostCustomer ==>> ${socialMyNotificationModel.docIdPostCustomer}');
+
         var result = await FirebaseFirestore.instance
             .collection('postcustomer')
             .doc(socialMyNotificationModel.docIdPostCustomer)
-            .get();
+            .get()
+            .catchError((onError) {});
 
         PostCustomerModel customerModel =
             PostCustomerModel.fromMap(result.data()!);
@@ -65,6 +71,7 @@ class _CustomerNotificationState extends State<CustomerNotification> {
           navigatorBool: false,
           socialMyNotificationModel: socialMyNotificationModel,
           fontWeight: socialMyNotificationModel.readed,
+          // customerName: socialMyNotificationModel.customerName,
         );
 
         setState(() {
@@ -98,11 +105,6 @@ class _CustomerNotificationState extends State<CustomerNotification> {
       socialReadeds.clear();
     }
     await Firebase.initializeApp().then((value) async {
-      final User = FirebaseAuth.instance.currentUser!;
-      uidLogin = User.uid;
-
-      print('#6jan uidLogin ==> $uidLogin');
-
       await FirebaseFirestore.instance
           .collection('postcustomer')
           .orderBy('timePost', descending: true)
@@ -152,7 +154,6 @@ class _CustomerNotificationState extends State<CustomerNotification> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: newAppBar(context),
       body: load
@@ -211,14 +212,14 @@ class _CustomerNotificationState extends State<CustomerNotification> {
         } else {
           // for form Contact
 
-          
-
-
+          print('#29Mar customerNotiModel ==>> ${customerNotiModel.toMap()}');
 
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CheckDetail(),
+                builder: (context) => CheckDetail(
+                  customerNotiModel: customerNotiModel,
+                ),
               ));
         }
       },

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/credit_card_form.dart';
-import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
-class c extends StatefulWidget {
-  const c({Key? key}) : super(key: key);
+class RequireCreditCard extends StatefulWidget {
+  const RequireCreditCard({Key? key}) : super(key: key);
 
   @override
-  _cState createState() => _cState();
+  _RequireCreditCardState createState() => _RequireCreditCardState();
 }
 
-class _cState extends State<c> {
+class _RequireCreditCardState extends State<RequireCreditCard> {
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
@@ -20,19 +18,6 @@ class _cState extends State<c> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-         leading: IconButton(
-   onPressed: () {
-     Navigator.pop(context);
-   },
-   icon: Icon(
-     Icons.arrow_back_ios,
-     color: Colors.white,
-   ),
- ),
-        automaticallyImplyLeading: false,
-        title: Text('C'),
-      ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(

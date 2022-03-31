@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:joelfindtechnician/customer_state/social_service.dart';
 import 'package:joelfindtechnician/forms/formto_technician.dart';
 import 'package:joelfindtechnician/models/appointment_model.dart';
-import 'package:joelfindtechnician/models/notification_model.dart';
 import 'package:joelfindtechnician/models/token_model.dart';
 import 'package:joelfindtechnician/models/user_model_old.dart';
 import 'package:joelfindtechnician/partner_state/mywallet.dart';
@@ -162,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(
                   builder: (context) => FormtoTechnician(
                     docIdAppointment: docIdAppointment,
-                    appointmentModel: appointmentModel,
+                    appointmentModel: appointmentModel, customerName: customerName,
                   ),
                 ));
           }
