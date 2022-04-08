@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:joelfindtechnician/customer_state/ctm_notification.dart';
 import 'package:joelfindtechnician/forms/check_detail.dart';
 import 'package:joelfindtechnician/forms/check_out.dart';
+import 'package:joelfindtechnician/partner_state/partner_notification.dart';
 import 'package:joelfindtechnician/state/detail_noti_social.dart';
 import 'package:joelfindtechnician/state/login_page.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CheckOut(),
+      home: LoginPage(),
 
       // home: DetailNotiSocial(reply: 'helloEye'),
       

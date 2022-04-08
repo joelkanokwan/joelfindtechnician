@@ -41,24 +41,14 @@ class _CheckDetailState extends State<CheckDetail> {
   bool? haveData;
 
   var user = FirebaseAuth.instance.currentUser;
-
   String? appointDateStr;
-
   String? orderNumber;
-
-  bool? display;
-  int? indexDisplay;
-  var displayWidgets = <Widget>[];
-
   String? taxID;
 
   @override
   void initState() {
     super.initState();
     customerNotiModel = widget.customerNotiModel;
-
-    displayWidgets.add(Text('This is QR CODE'));
-    displayWidgets.add(RequireCreditCard());
 
     if (customerNotiModel == null) {
       setState(() {
@@ -266,127 +256,37 @@ class _CheckDetailState extends State<CheckDetail> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 40),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: FlatButton(
-                            textColor: Colors.white,
-                            color: Colors.blueAccent,
-                            onPressed: () {
-                              if (taxID?.isEmpty ?? true) {
-                                MyDialog().normalDialog(
-                                    context, 'No Tax ID', 'Please Fill Tax ID');
-                              }
-                            },
-                            child: Text(
-                              'Confirm Payment',
-                              style: GoogleFonts.lato(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Divider(thickness: 3),
-                      Text(
-                        'Payment methods :',
-                        style: GoogleFonts.lato(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Card(
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          print('#30Mar You Click QR CODE');
-                                          display = true;
-                                          indexDisplay = 0;
-                                          setState(() {});
-                                        },
-                                        child: Icon(
-                                          Icons.qr_code,
-                                        ),
-                                      ),
-                                      Text(
-                                        'QR Code',
-                                        style: GoogleFonts.lato(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                color: Colors.amberAccent,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Card(
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      InkWell(
-                                          onTap: () {
-                                            print(
-                                                '#30Mar You Click CreditCard');
-                                            display = true;
-                                            indexDisplay = 1;
-                                            setState(() {});
-                                          },
-                                          child: Icon(Icons.credit_card)),
-                                      Text(
-                                        'Credit card',
-                                        style: GoogleFonts.lato(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                color: Colors.amberAccent,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            display == null
-                ? SizedBox()
-                : SizedBox(
-                    width: 400,
-                    height: 600,
-                    child: displayWidgets[indexDisplay!]),
+            SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                child: FlatButton(
+                  textColor: Colors.white,
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    if (taxID?.isEmpty ?? true) {
+                      MyDialog().normalDialog(
+                          context, 'No Tax ID', 'Please Fill Tax ID');
+                    }
+                  },
+                  child: Text(
+                    'Payment',
+                    style: GoogleFonts.lato(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

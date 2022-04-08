@@ -38,83 +38,91 @@ class _CheckOutState extends State<CheckOut> {
       ),
       body: Container(
         padding: EdgeInsets.only(left: 15, right: 15),
-        child: GridView.count(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Card(
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          print('#30Mar You Click QR CODE');
-                          display = true;
-                          indexDisplay = 0;
-                          setState(() {});
-                        },
-                        child: Icon(
-                          Icons.qr_code,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GridView.count(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Card(
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                print('#30Mar You Click QR CODE');
+                                display = true;
+                                indexDisplay = 0;
+                                setState(() {});
+                              },
+                              child: Icon(
+                                Icons.qr_code,
+                              ),
+                            ),
+                            Text(
+                              'QR Code',
+                              style: GoogleFonts.lato(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        'QR Code',
-                        style: GoogleFonts.lato(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ],
+                      color: Colors.amberAccent,
+                    ),
                   ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                color: Colors.amberAccent,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Card(
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            print('#30Mar You Click CreditCard');
-                            display = true;
-                            indexDisplay = 1;
-                            setState(() {});
-                          },
-                          child: Icon(Icons.credit_card)),
-                      Text(
-                        'Credit card',
-                        style: GoogleFonts.lato(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Card(
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  print('#30Mar You Click CreditCard');
+                                  display = true;
+                                  indexDisplay = 1;
+                                  setState(() {});
+                                },
+                                child: Icon(Icons.credit_card)),
+                            Text(
+                              'Credit card',
+                              style: GoogleFonts.lato(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      color: Colors.amberAccent,
+                    ),
                   ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                color: Colors.amberAccent,
+                 
+                ],
               ),
-            ),
-            display == null
-                ? SizedBox()
-                : SizedBox(
-                    width: 400,
-                    height: 600,
-                    child: displayWidgets[indexDisplay!]),
-          ],
+              // Text('data')
+               display == null
+                  ? SizedBox()
+                  : SizedBox(
+                      width: 400,
+                      height: 600,
+                      child: displayWidgets[indexDisplay!]),
+            ],
+          ),
         ),
       ),
     );

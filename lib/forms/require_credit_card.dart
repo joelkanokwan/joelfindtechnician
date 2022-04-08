@@ -23,6 +23,7 @@ class _RequireCreditCardState extends State<RequireCreditCard> {
         child: Column(
           children: [
             CreditCardWidget(
+              cardBgColor: Colors.black,
               cardNumber: cardNumber,
               expiryDate: expiryDate,
               cardHolderName: cardHolderName,
@@ -66,11 +67,11 @@ class _RequireCreditCardState extends State<RequireCreditCard> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        primary: Color(0xff1b447b)),
+                        primary: Color.fromARGB(255, 159, 115, 209)),
                     child: Container(
                       margin: EdgeInsets.all(8.0),
                       child: Text(
-                        'validate',
+                        'Confirm Pay xxxx Bath',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'halter',
