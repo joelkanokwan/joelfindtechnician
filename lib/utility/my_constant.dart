@@ -2,6 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyConstant {
+  static String publicKey = 'pkey_test_5nl5d96exz02lo5t02m';
+  static String secretKey = 'skey_test_5nl5d96f6usasnwyid4';
+
+ 
+ 
+
   static List<Color> colors = [
     Colors.blue,
     Colors.yellow,

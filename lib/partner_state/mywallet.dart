@@ -8,27 +8,9 @@ class MyWallet extends StatefulWidget {
 }
 
 class _MyWalletState extends State<MyWallet> {
-  late Map<DateTime, List<Event>> selectedEvents;
-  CalendarFormat format = CalendarFormat.month;
-  DateTime selectedDay = DateTime.now();
-  DateTime focusedDay = DateTime.now();
-
-  TextEditingController _eventController = TextEditingController();
-
   @override
   void initState() {
-    selectedEvents = {};
     super.initState();
-  }
-
-  List<Event> _getEventsfromDay(DateTime date) {
-    return selectedEvents[date] ?? [];
-  }
-
-  @override
-  void dispose() {
-    _eventController.dispose();
-    super.dispose();
   }
 
   @override
@@ -47,169 +29,100 @@ class _MyWalletState extends State<MyWallet> {
         title: Text("My Wallet"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          TableCalendar(
-            focusedDay: selectedDay,
-            firstDay: DateTime(1990),
-            lastDay: DateTime(2050),
-            calendarFormat: format,
-            onFormatChanged: (CalendarFormat _format) {
-              setState(() {
-                format = _format;
-              });
-            },
-            startingDayOfWeek: StartingDayOfWeek.sunday,
-            daysOfWeekVisible: true,
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            buildCard(),
+            SizedBox(height: 30),
+            buildtransaction(),
+          ],
+        ),
+      ),
+    );
+  }
 
-            //Day Changed
-            onDaySelected: (DateTime selectDay, DateTime focusDay) {
-              setState(() {
-                selectedDay = selectDay;
-                focusedDay = focusDay;
-              });
-              print(focusedDay);
-            },
-            selectedDayPredicate: (DateTime date) {
-              return isSameDay(selectedDay, date);
-            },
-
-            eventLoader: _getEventsfromDay,
-
-            //To style the Calendar
-            calendarStyle: CalendarStyle(
-              isTodayHighlighted: true,
-              selectedDecoration: BoxDecoration(
-                color: Colors.blue,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              selectedTextStyle: TextStyle(color: Colors.white),
-              todayDecoration: BoxDecoration(
-                color: Colors.purpleAccent,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              defaultDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              weekendDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-            ),
-            headerStyle: HeaderStyle(
-              formatButtonVisible: true,
-              titleCentered: true,
-              formatButtonShowsNext: false,
-              formatButtonDecoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              formatButtonTextStyle: TextStyle(
+  Container buildCard() {
+    return Container(
+      height: 140,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.deepPurple,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "8,458.00",
+              style: TextStyle(
                 color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 28,
               ),
             ),
-          ),
-          ListView(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: IntrinsicHeight(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Order ID',
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'xxxxxx',
-                              ),
-                            ],
-                          ),
-                          VerticalDivider(thickness: 1),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Allowance',
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'xxxxxx',
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+            SizedBox(height: 4),
+            Text(
+              "Total Balance (Bath)",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.9),
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildtransaction() {
+    return Container(
+      child: ListView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Order number',
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'xxxxxx',
+                        ),
+                      ],
                     ),
-                  ),
+                    VerticalDivider(thickness: 1),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Allowance',
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'xxxxxx',
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-
-          // ..._getEventsfromDay(selectedDay).map(
-          // (Event event) => ListTile(
-          // title: Text(
-          // event.title,
-          // ),
-          // ),
-          // ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      // onPressed: () => showDialog(
-      // context: context,
-      // builder: (context) => AlertDialog(
-      // title: Text("Add Event"),
-      // content: TextFormField(
-      // controller: _eventController,
-      // ),
-      // actions: [
-      // TextButton(
-      // child: Text("Cancel"),
-      // onPressed: () => Navigator.pop(context),
-      // ),
-      // TextButton(
-      // child: Text("Ok"),
-      // onPressed: () {
-      // if (_eventController.text.isEmpty) {
-
-      // } else {
-      // if (selectedEvents[selectedDay] != null) {
-      // selectedEvents[selectedDay]!.add(
-      // Event(title: _eventController.text),
-      // );
-      // } else {
-      // selectedEvents[selectedDay] = [
-      // Event(title: _eventController.text)
-      // ];
-      // }
-
-      // }
-      // Navigator.pop(context);
-      // _eventController.clear();
-      // setState((){});
-      // return;
-      // },
-      // ),
-      // ],
-      // ),
-      // ),
-      // label: Text("Add Event"),
-      // icon: Icon(Icons.add),
-      // ),
     );
   }
 }

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:joelfindtechnician/forms/require_credit_card.dart';
+import 'package:joelfindtechnician/forms/require_promptpay.dart';
 
 class CheckOut extends StatefulWidget {
-  const CheckOut({Key? key}) : super(key: key);
+  final String taxID;
+  final String totalPrice;
+  final String docMynotification;
+  const CheckOut({
+    Key? key,
+    required this.taxID,
+    required this.totalPrice,
+    required this.docMynotification,
+  }) : super(key: key);
 
   @override
   State<CheckOut> createState() => _CheckOutState();
@@ -18,7 +27,11 @@ class _CheckOutState extends State<CheckOut> {
   void initState() {
     super.initState();
     displayWidgets.add(Text('This is QR CODE'));
-    displayWidgets.add(RequireCreditCard());
+    displayWidgets.add(RequireCreditCard(
+      totalPrice: widget.totalPrice,
+      docMynotification: widget.docMynotification,
+      taxID: widget.taxID,
+    ));
   }
 
   @override
@@ -55,9 +68,9 @@ class _CheckOutState extends State<CheckOut> {
                           children: [
                             InkWell(
                               onTap: () {
-                                print('#30Mar You Click QR CODE');
-                                display = true;
-                                indexDisplay = 0;
+                                // print('#30Mar You Click QR CODE');
+                                // display = true;
+                                // indexDisplay = 0;
                                 setState(() {});
                               },
                               child: Icon(
@@ -111,11 +124,10 @@ class _CheckOutState extends State<CheckOut> {
                       color: Colors.amberAccent,
                     ),
                   ),
-                 
                 ],
               ),
               // Text('data')
-               display == null
+              display == null
                   ? SizedBox()
                   : SizedBox(
                       width: 400,

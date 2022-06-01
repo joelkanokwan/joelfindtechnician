@@ -346,11 +346,11 @@ class _RegisterPartnerState extends State<RegisterPartner> {
                   buildJobType(context),
                   SizedBox(height: 20),
                   Text('ข้อมูลการโอนเงิน'),
-                  buildNameOfBank(),
+                  Text('ธนาคารไทยพาณิชย์'),
+
                   buildOwnerAccount(),
                   buildAccountNumber(),
 
-                  buildbranch(),
                   ElevatedButton(
                     onPressed: () {
                       showDialog(

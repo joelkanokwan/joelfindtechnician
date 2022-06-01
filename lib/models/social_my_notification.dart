@@ -12,6 +12,8 @@ class SocialMyNotificationModel {
   final String detailOfWork;
   final String waranty;
   final String totalPrice;
+  final String? taxID;
+  final String? status;
   SocialMyNotificationModel({
     required this.docIdPostCustomer,
     required this.docIdTechnic,
@@ -21,6 +23,8 @@ class SocialMyNotificationModel {
     required this.detailOfWork,
     required this.waranty,
     required this.totalPrice,
+    this.taxID,
+    this.status,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,6 +37,8 @@ class SocialMyNotificationModel {
       'detailOfWork': detailOfWork,
       'waranty': waranty,
       'totalPrice': totalPrice,
+      'taxID': taxID,
+      'status': status,
     };
   }
 
@@ -40,12 +46,14 @@ class SocialMyNotificationModel {
     return SocialMyNotificationModel(
       docIdPostCustomer: map['docIdPostCustomer'] ?? '',
       docIdTechnic: map['docIdTechnic'] ?? '',
-      timeConfirm: (map['timeConfirm']),
+      timeConfirm:(map['timeConfirm']),
       readed: map['readed'] ?? false,
       customerName: map['customerName'] ?? '',
       detailOfWork: map['detailOfWork'] ?? '',
       waranty: map['waranty'] ?? '',
       totalPrice: map['totalPrice'] ?? '',
+      taxID: map['taxID'] ?? '',
+      status: map['status'] ?? '',
     );
   }
 

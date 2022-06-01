@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,29 +13,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:joelfindtechnician/alertdialog/my_dialog.dart';
 import 'package:joelfindtechnician/customer_state/create_post.dart';
-import 'package:joelfindtechnician/customer_state/ctm_aboutus.dart';
-import 'package:joelfindtechnician/customer_state/ctm_contactus.dart';
-import 'package:joelfindtechnician/customer_state/ctm_howtouseapp.dart';
-import 'package:joelfindtechnician/customer_state/ctm_notification.dart';
-import 'package:joelfindtechnician/customer_state/ctm_ordethistory.dart';
-import 'package:joelfindtechnician/customer_state/ctm_termandconditon.dart';
 import 'package:joelfindtechnician/models/answer_model.dart';
 import 'package:joelfindtechnician/models/postcustomer_model.dart';
 import 'package:joelfindtechnician/models/replypost_model.dart';
 import 'package:joelfindtechnician/models/typetechnic_array.dart';
 import 'package:joelfindtechnician/state/edit_post.dart';
-
 import 'package:joelfindtechnician/state/list_technic_where_type.dart';
-import 'package:joelfindtechnician/state/login_page.dart';
-import 'package:joelfindtechnician/customer_state/login_success.dart';
-import 'package:joelfindtechnician/customer_state/social_service.dart';
 import 'package:joelfindtechnician/models/user_model_old.dart';
 import 'package:joelfindtechnician/state/show_circleavatar.dart';
 import 'package:joelfindtechnician/state/show_general_profile.dart';
 import 'package:joelfindtechnician/state/show_image_post.dart';
 import 'package:joelfindtechnician/state/show_profile.dart';
 import 'package:joelfindtechnician/utility/check_user_social.dart';
-import 'package:joelfindtechnician/utility/find_user_by_uid.dart';
 import 'package:joelfindtechnician/utility/my_constant.dart';
 import 'package:joelfindtechnician/utility/time_to_string.dart';
 import 'package:joelfindtechnician/widgets/show_image.dart';

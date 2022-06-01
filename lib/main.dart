@@ -4,11 +4,9 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:joelfindtechnician/customer_state/ctm_notification.dart';
-import 'package:joelfindtechnician/forms/check_detail.dart';
+import 'package:joelfindtechnician/customer_state/ctm_comfirmation.dart';
 import 'package:joelfindtechnician/forms/check_out.dart';
-import 'package:joelfindtechnician/partner_state/partner_notification.dart';
-import 'package:joelfindtechnician/state/detail_noti_social.dart';
+import 'package:joelfindtechnician/partner_state/partner_confirmation.dart';
 import 'package:joelfindtechnician/state/login_page.dart';
 
 final Map<String, WidgetBuilder> map = {
@@ -37,11 +35,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
-
-      // home: DetailNotiSocial(reply: 'helloEye'),
-      
-      
-      
     );
   }
 }
@@ -94,3 +87,50 @@ class MyHttpOverride extends HttpOverrides {
           (X509Certificate cer, String host, int port) => true;
   }
 }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

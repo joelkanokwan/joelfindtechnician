@@ -1,160 +1,128 @@
-
 import 'package:flutter/material.dart';
-import 'package:joelfindtechnician/state/event.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CustomerOrderHistory extends StatefulWidget {
+  const CustomerOrderHistory({Key? key}) : super(key: key);
+
   @override
-  _CustomerOrderHistoryState createState() => _CustomerOrderHistoryState();
+  State<CustomerOrderHistory> createState() => _CustomerOrderHistoryState();
 }
 
 class _CustomerOrderHistoryState extends State<CustomerOrderHistory> {
-  late Map<DateTime, List<Event>> selectedEvents;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
-  TextEditingController _eventController = TextEditingController();
-
   @override
   void initState() {
-    selectedEvents = {};
     super.initState();
-  }
-
-  List<Event> _getEventsfromDay(DateTime date) {
-    return selectedEvents[date] ?? [];
-  }
-
-  @override
-  void dispose() {
-    _eventController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Customer OrderHistory"),
+        title: Text('Customer OrderHistory'),
         centerTitle: true,
       ),
-      body: Column(
+      body: Column(children: [
+        buildCalendar(),
+        SizedBox(height: 20),
+        buildtransaction(),
+      ]),
+    );
+  }
+
+  TableCalendar<dynamic> buildCalendar() {
+    return TableCalendar(
+      focusedDay: selectedDay,
+      firstDay: DateTime(2022),
+      lastDay: DateTime(2032),
+      onFormatChanged: (CalendarFormat _format) {
+        setState(() {
+          format = _format;
+        });
+      },
+      calendarFormat: format,
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      daysOfWeekVisible: true,
+      onDaySelected: (DateTime selectDay, DateTime focusDay) {
+        setState(() {
+          selectedDay = selectDay;
+          focusedDay = focusDay;
+        });
+        print(focusedDay);
+      },
+      selectedDayPredicate: (DateTime date) {
+        return isSameDay(selectedDay, date);
+      },
+      headerStyle: HeaderStyle(
+        leftChevronIcon: const Icon(
+          Icons.chevron_left,
+          size: 24,
+          color: Colors.black54,
+        ),
+        rightChevronIcon: const Icon(
+          Icons.chevron_right,
+          size: 24,
+          color: Colors.black54,
+        ),
+
+        formatButtonVisible: true,
+        formatButtonShowsNext: false,
+
+        formatButtonDecoration: BoxDecoration(
+          color: Colors.lightBlueAccent,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        formatButtonTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+        titleTextStyle: const TextStyle(
+          color: Color.fromARGB(255, 87, 80, 80),
+          fontSize: 19,
+          fontWeight: FontWeight.bold,
+        ),
+        // titleCentered: true,
+      ),
+      calendarStyle: CalendarStyle(
+        isTodayHighlighted: true,
+        selectedDecoration: BoxDecoration(
+          color: Colors.blue,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        selectedTextStyle: TextStyle(color: Colors.white),
+        todayDecoration: BoxDecoration(
+          color: Colors.purpleAccent,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        defaultDecoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+      ),
+    );
+  }
+
+  Container buildtransaction() {
+    return Container(
+      child: ListView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: [
-          TableCalendar(
-            focusedDay: selectedDay,
-            firstDay: DateTime(1990),
-            lastDay: DateTime(2050),
-            calendarFormat: format,
-            onFormatChanged: (CalendarFormat _format) {
-              setState(() {
-                format = _format;
-              });
-            },
-            startingDayOfWeek: StartingDayOfWeek.sunday,
-            daysOfWeekVisible: true,
-
-            //Day Changed
-            onDaySelected: (DateTime selectDay, DateTime focusDay) {
-              setState(() {
-                selectedDay = selectDay;
-                focusedDay = focusDay;
-              });
-              print(focusedDay);
-            },
-            selectedDayPredicate: (DateTime date) {
-              return isSameDay(selectedDay, date);
-            },
-
-            eventLoader: _getEventsfromDay,
-
-            //To style the Calendar
-            calendarStyle: CalendarStyle(
-              isTodayHighlighted: true,
-              selectedDecoration: BoxDecoration(
-                color: Colors.blue,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              selectedTextStyle: TextStyle(color: Colors.white),
-              todayDecoration: BoxDecoration(
-                color: Colors.purpleAccent,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              defaultDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              weekendDecoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-            ),
-            headerStyle: HeaderStyle(
-              formatButtonVisible: true,
-              titleCentered: true,
-              formatButtonShowsNext: false,
-              formatButtonDecoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              formatButtonTextStyle: TextStyle(
-                color: Colors.white,
-              ),
+          Card(
+            color: Colors.redAccent,
+            child: Padding(
+              padding: const EdgeInsets.all(23),
+              child: Text('Order number : xxxxxxx'),
             ),
           ),
-          // ..._getEventsfromDay(selectedDay).map(
-            // (Event event) => ListTile(
-              // title: Text(
-                // event.title,
-              // ),
-            // ),
-          // ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-        // onPressed: () => showDialog(
-          // context: context,
-          // builder: (context) => AlertDialog(
-            // title: Text("Add Event"),
-            // content: TextFormField(
-              // controller: _eventController,
-            // ),
-            // actions: [
-              // TextButton(
-                // child: Text("Cancel"),
-                // onPressed: () => Navigator.pop(context),
-              // ),
-              // TextButton(
-                // child: Text("Ok"),
-                // onPressed: () {
-                  // if (_eventController.text.isEmpty) {
-
-                  // } else {
-                    // if (selectedEvents[selectedDay] != null) {
-                      // selectedEvents[selectedDay]!.add(
-                        // Event(title: _eventController.text),
-                      // );
-                    // } else {
-                      // selectedEvents[selectedDay] = [
-                        // Event(title: _eventController.text)
-                      // ];
-                    // }
-
-                  // }
-                  // Navigator.pop(context);
-                  // _eventController.clear();
-                  // setState((){});
-                  // return;
-                // },
-              // ),
-            // ],
-          // ),
-        // ),
-        // label: Text("Add Event"),
-        // icon: Icon(Icons.add),
-      // ),
     );
   }
 }

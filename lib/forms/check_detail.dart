@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:joelfindtechnician/alertdialog/my_dialog.dart';
+import 'package:joelfindtechnician/forms/check_out.dart';
 import 'package:joelfindtechnician/forms/require_credit_card.dart';
 import 'package:joelfindtechnician/models/appointment_model.dart';
 import 'package:joelfindtechnician/models/customer_noti_model.dart';
@@ -32,7 +33,7 @@ class CheckDetail extends StatefulWidget {
 class _CheckDetailState extends State<CheckDetail> {
   File? image;
   CustomerNotiModel? customerNotiModel;
-  UserModelOld? userModelOld; //
+  UserModelOld? userModelOld;
   AppointmentModel? appointmentModel;
   SocialMyNotificationModel? socialMyNotificationModel;
   PostCustomerModel? postCustomerModel;
@@ -42,8 +43,8 @@ class _CheckDetailState extends State<CheckDetail> {
 
   var user = FirebaseAuth.instance.currentUser;
   String? appointDateStr;
-  String? orderNumber;
   String? taxID;
+  String? docMynotification;
 
   @override
   void initState() {
@@ -114,7 +115,7 @@ class _CheckDetailState extends State<CheckDetail> {
             .get()
             .then((value) {
           for (var item in value.docs) {
-            orderNumber = item.id;
+            docMynotification = item.id;
             socialMyNotificationModel =
                 SocialMyNotificationModel.fromMap(item.data());
             load = false;
@@ -208,7 +209,7 @@ class _CheckDetailState extends State<CheckDetail> {
                           changeFunc: (string) => taxID = string!.trim()),
                       SizedBox(height: 8),
                       Text(
-                        'Order number :  $orderNumber',
+                        'Order number :  $docMynotification',
                         style: GoogleFonts.lato(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -272,6 +273,22 @@ class _CheckDetailState extends State<CheckDetail> {
                     if (taxID?.isEmpty ?? true) {
                       MyDialog().normalDialog(
                           context, 'No Tax ID', 'Please Fill Tax ID');
+                    } else {
+                      if (socialMyNotificationModel!.status == 'charged') {
+                        MyDialog()
+                            .normalDialog(context, 'Paid', 'Payment Sucess');
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CheckOut(
+                                taxID: taxID!,
+                                totalPrice:
+                                    socialMyNotificationModel!.totalPrice,
+                                docMynotification: docMynotification!,
+                              ),
+                            ));
+                      }
                     }
                   },
                   child: Text(
