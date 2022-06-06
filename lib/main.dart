@@ -4,9 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:joelfindtechnician/customer_state/ctm_comfirmation.dart';
-import 'package:joelfindtechnician/forms/check_out.dart';
-import 'package:joelfindtechnician/partner_state/partner_confirmation.dart';
+import 'package:joelfindtechnician/partner_state/pay_slip.dart';
 import 'package:joelfindtechnician/state/login_page.dart';
 
 final Map<String, WidgetBuilder> map = {
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: PaySlip(),
     );
   }
 }
@@ -87,50 +85,3 @@ class MyHttpOverride extends HttpOverrides {
           (X509Certificate cer, String host, int port) => true;
   }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

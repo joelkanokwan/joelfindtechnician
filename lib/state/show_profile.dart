@@ -4,29 +4,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:joelfindtechnician/customer_state/social_service.dart';
 import 'package:joelfindtechnician/models/reference_model.dart';
 import 'package:joelfindtechnician/models/user_model_old.dart';
 import 'package:joelfindtechnician/partner_state/choose_image.dart';
 import 'package:joelfindtechnician/partner_state/edditTest.dart';
-
-import 'package:joelfindtechnician/partner_state/home_page.dart';
-import 'package:joelfindtechnician/partner_state/mywallet.dart';
-import 'package:joelfindtechnician/partner_state/partner_aboutus.dart';
-import 'package:joelfindtechnician/partner_state/partner_contactus.dart';
-import 'package:joelfindtechnician/partner_state/partner_howtouseapp.dart';
-import 'package:joelfindtechnician/partner_state/partner_notification.dart';
-import 'package:joelfindtechnician/partner_state/partner_orderhistory.dart';
-import 'package:joelfindtechnician/partner_state/partner_signin.dart';
-import 'package:joelfindtechnician/partner_state/partner_termandconditon.dart';
-
 import 'package:joelfindtechnician/state/community_page.dart';
 import 'package:joelfindtechnician/state/show_photo_ref.dart';
-
 import 'package:joelfindtechnician/state/show_review.dart';
-
 import 'package:joelfindtechnician/utility/my_constant.dart';
 import 'package:joelfindtechnician/widgets/show_progress.dart';
+
 
 class ShowProfile extends StatefulWidget {
   const ShowProfile({Key? key}) : super(key: key);
