@@ -89,6 +89,7 @@ class _PartnerSigninState extends State<PartnerSignin> {
                       child: Text(
                         "Partner",
                         style: GoogleFonts.fredokaOne(
+                         
                           fontSize: 60,
                         ),
                       ),

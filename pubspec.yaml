@@ -51,7 +51,7 @@ dependencies:
   flutter_credit_card: ^3.0.1
   flutter_clean_calendar: ^1.1.0
   table_calendar: ^3.0.3
-  cached_network_image: ^3.1.0
+  cached_network_image: ^3.2.1
   firebase_messaging: ^11.1.0
   flutter_local_notifications: ^9.1.4
   omise_flutter: ^0.1.6
