@@ -23,7 +23,7 @@ class _PaySlipState extends State<PaySlip> {
 
     final tableData = [
       [
-        'Wage :                              10000',
+        'Wage :                                         10000',
         'Withholding Tax :                              250',
       ],
     ];
@@ -124,20 +124,53 @@ class _PaySlipState extends State<PaySlip> {
                     pw.SizedBox(height: 20),
                     pw.Table.fromTextArray(
                       headers: tableHeaders,
+
                       data: tableData,
+
                       // border: null,
                       // border: pw.TableBorder(verticalInside: pw.BorderSide(width: 0.5)),
-                      defaultColumnWidth: const pw.FixedColumnWidth(240),
+                      defaultColumnWidth: const pw.FixedColumnWidth(245),
                       headerStyle: pw.TextStyle(
+                        fontSize: 18,
                         fontWeight: pw.FontWeight.bold,
                       ),
                       headerDecoration:
                           const pw.BoxDecoration(color: PdfColors.grey300),
                       cellHeight: 30.0,
                       cellAlignments: {
-                        0: pw.Alignment.centerLeft,
-                        1: pw.Alignment.centerLeft,
+                        0: pw.Alignment.center,
+                        1: pw.Alignment.center,
                       },
+                      cellStyle: pw.TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                    pw.SizedBox(height: 20),
+                    pw.Column(
+                      children: [
+                        pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.Text(''),
+                              pw.SizedBox(width: 250),
+                              pw.Text(
+                                'Total Earnings',
+                                style: pw.TextStyle(
+                                  fontWeight: pw.FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              pw.SizedBox(width: 50),
+                              pw.Text(
+                                '10000',
+                                style: pw.TextStyle(
+                                  fontWeight: pw.FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ]),
+                      ],
                     ),
                   ],
                 ),
