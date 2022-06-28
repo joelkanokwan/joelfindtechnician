@@ -31,155 +31,126 @@ class _PaySlipState extends State<PaySlip> {
     final imageLogo = pw.MemoryImage(
         (await rootBundle.load('assets/images/logo.png')).buffer.asUint8List());
 
-    pdf.addPage(
-      pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (context) => pw.Column(
+    pdf.addPage(pw.Page(
+      pageFormat: PdfPageFormat.a4,
+      build: (context) => pw.Column(children: [
+        pw.Row(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
-            pw.Row(
-              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            pw.Image(imageLogo),
+            pw.Text(
+              'PAYSLIP',
+              style: pw.TextStyle(
+                fontWeight: pw.FontWeight.bold,
+                fontSize: 40,
+              ),
+            ),
+          ],
+        ),
+        pw.SizedBox(height: 10),
+        pw.Row(
+          children: [
+            pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Image(imageLogo),
                 pw.Text(
-                  'PAYSLIP',
+                  'Company name',
                   style: pw.TextStyle(
+                    fontStyle: pw.FontStyle.italic,
                     fontWeight: pw.FontWeight.bold,
-                    fontSize: 40,
+                    fontSize: 30,
                   ),
                 ),
-              ],
-            ),
-            pw.SizedBox(height: 10),
-            pw.Row(
-              children: [
-                pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      'Company name',
-                      style: pw.TextStyle(
-                        fontStyle: pw.FontStyle.italic,
-                        fontWeight: pw.FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    pw.Text(
-                      '163/31 Myhipcondo2',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.Text(
-                      'Nongpakung Mung district',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.Text(
-                      'ChiangMai 50000',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.SizedBox(height: 30),
-                    pw.Text(
-                      'Employee details :',
-                      style: pw.TextStyle(
-                        fontWeight: pw.FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.SizedBox(height: 10),
-                    pw.Text(
-                      'Paid : 1 July 2022',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.Text(
-                      'Period day : 15-30 June 2022',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.SizedBox(height: 10),
-                    pw.Text(
-                      'Joel Yeo',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.Text(
-                      '673 Woodlands',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.Text(
-                      'Singapore 730673',
-                      style: pw.TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                    pw.SizedBox(height: 20),
-                    pw.Table.fromTextArray(
-                      headers: tableHeaders,
-
-                      data: tableData,
-
-                      // border: null,
-                      // border: pw.TableBorder(verticalInside: pw.BorderSide(width: 0.5)),
-                      defaultColumnWidth: const pw.FixedColumnWidth(245),
-                      headerStyle: pw.TextStyle(
-                        fontSize: 18,
-                        fontWeight: pw.FontWeight.bold,
-                      ),
-                      headerDecoration:
-                          const pw.BoxDecoration(color: PdfColors.grey300),
-                      cellHeight: 30.0,
-                      cellAlignments: {
-                        0: pw.Alignment.center,
-                        1: pw.Alignment.center,
-                      },
-                      cellStyle: pw.TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                    pw.SizedBox(height: 20),
-                    pw.Column(
-                      children: [
-                        pw.Row(
-                            mainAxisAlignment:
-                                pw.MainAxisAlignment.spaceBetween,
-                            children: [
-                              pw.Text(''),
-                              pw.SizedBox(width: 250),
-                              pw.Text(
-                                'Total Earnings',
-                                style: pw.TextStyle(
-                                  fontWeight: pw.FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              pw.SizedBox(width: 50),
-                              pw.Text(
-                                '10000',
-                                style: pw.TextStyle(
-                                  fontWeight: pw.FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ]),
-                      ],
-                    ),
-                  ],
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  '163/31 Myhipcondo2',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  'Nongpakung Mung district',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  'ChiangMai 50000',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  'Tel : 0931765180',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 30),
+                pw.Text(
+                  'Employee details :',
+                  style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  'Joel Yeo',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  '673 Woodlands',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  'Singapore 730673',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.Text(
+                  'Tel : 0901111111',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                pw.SizedBox(height: 30),
+                pw.Text(
+                  'Paid : 1 July 2022',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.SizedBox(height: 10),
+                pw.Text(
+                  'Period day : 15-30 June 2022',
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.SizedBox(height: 30),
+                pw.Table.fromTextArray(
+                  headers: tableHeaders,
+                  data: tableData,
                 ),
               ],
             )
           ],
         ),
-      ),
-    );
+      ]),
+    ));
 
     return pdf.save();
   }
