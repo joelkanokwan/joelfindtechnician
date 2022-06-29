@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ class ReceiptAndInvoice extends StatefulWidget {
 class _ReceiptAndInvoiceState extends State<ReceiptAndInvoice> {
   Future<Uint8List> generatePdf() async {
     var pdf = pw.Document();
-
+final file = File("example.pdf");
+await file.writeAsBytes(await pdf.save());
     final tableHeaders = [
       'DESCRIPTION',
       'QTY',
