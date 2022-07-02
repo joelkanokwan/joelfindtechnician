@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:joelfindtechnician/customer_state/credit_note.dart';
 import 'package:joelfindtechnician/customer_state/receipt_invoice.dart';
 import 'package:joelfindtechnician/partner_state/pay_slip.dart';
 import 'package:joelfindtechnician/state/login_page.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PaySlip(),
+      home: CreditNote(),
     );
   }
 }

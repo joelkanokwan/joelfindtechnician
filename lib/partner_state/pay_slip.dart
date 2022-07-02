@@ -253,6 +253,13 @@ class _PaySlipState extends State<PaySlip> {
         ),
         title: Text('Pay Slip'),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 8, bottom: 50),
+        child: FloatingActionButton(
+          child: Icon(Icons.save_alt_outlined),
+          onPressed: () {},
+        ),
+      ),
       body: Container(
         child: PdfPreview(
           build: (format) => generatePdf(),
