@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:joelfindtechnician/forms/refund_creditcard.dart';
 import 'package:joelfindtechnician/forms/require_credit_card.dart';
 import 'package:joelfindtechnician/forms/require_promptpay.dart';
+
 
 class CheckOut extends StatefulWidget {
   final String taxID;
@@ -67,11 +69,17 @@ class _CheckOutState extends State<CheckOut> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RequirePromptPay(),
+                                    ));
+
                                 // print('#30Mar You Click QR CODE');
                                 // display = true;
                                 // indexDisplay = 0;
-                                setState(() {});
+                                // setState(() {});
                               },
                               child: Icon(
                                 Icons.qr_code,
